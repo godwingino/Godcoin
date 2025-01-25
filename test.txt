@@ -1,0 +1,5 @@
+create -  http GET "http://127.0.0.1:5000/wallet"
+view blockchain - http GET "http://127.0.0.1:5000/chain"
+mine - http GET "http://127.0.0.1:5000/mine?miner_address=<public_key>"
+check balance - http GET "http://127.0.0.1:5000/balance/<public_key>"
+

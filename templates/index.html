@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Godcoin Exchange - Decentralized Cryptocurrency Platform</title>
+    <meta name="description" content="Godcoin is a decentralized cryptocurrency with a fixed supply of 5 million coins, offering secure peer-to-peer transactions and mining rewards through proof-of-work consensus.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #13123A 0%, #1C1B4B 100%);
+        }
+        .wallet-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .wallet-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #00F5A0 0%, #00D9F5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #00F5A0;
+        }
+        .stats-gradient {
+            background: linear-gradient(135deg, rgba(0, 245, 160, 0.1) 0%, rgba(0, 217, 245, 0.1) 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-white">
+    <nav class="border-b border-gray-800 bg-[#0F0F2D] py-4">
+        <div class="container mx-auto px-6 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#00F5A0]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M16 8l-4 4-4-4"/>
+                    <path d="M12 16V8"/>
+                </svg>
+                <span class="text-2xl font-bold gradient-text">Godcoin</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 py-12">
+        <div class="flex justify-between items-center mb-12">
+            <h1 class="text-4xl font-bold">Your Wallets</h1>
+            <div class="flex space-x-4">
+                <a href="/wallet/new" class="flex items-center space-x-2 bg-[#2D2D6A] hover:bg-[#3D3D7A] px-6 py-3 rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M12 5v14M5 12h14"/>
+                    </svg>
+                    <span>Create New Wallet</span>
+                </a>
+                <a href="/chain" class="flex items-center space-x-2 bg-[#2D2D6A] hover:bg-[#3D3D7A] px-6 py-3 rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/>
+                    </svg>
+                    <span>Visualize Blockchain</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% if wallets %}
+                {% for wallet in wallets.values() %}
+                <div class="wallet-card rounded-xl p-6 border border-gray-800">
+                    <div class="flex items-center mb-4">
+                        <div class="p-3 bg-[#2D2D6A] rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#00F5A0]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="2" y="6" width="20" height="12" rx="2"/>
+                                <path d="M22 10h-4c-1.1 0-2 .9-2 2v0c0 1.1.9 2 2 2h4"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <p class="text-gray-400 text-sm mb-1">Wallet Address</p>
+                        <p class="font-mono">{{ wallet[1][:10] }}...{{ wallet[1][-8:] }}</p>
+                    </div>
+                    <div class="flex justify-end">
+                        <a href="/wallet/{{ wallet[1] }}" class="bg-[#00F5A0] text-[#13123A] px-6 py-2 rounded-lg font-semibold hover:bg-[#00D9F5] transition-colors">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+            <div class="col-span-full">
+                <div class="text-center py-12 bg-[#2D2D6A] rounded-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto mb-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <rect x="2" y="6" width="20" height="12" rx="2"/>
+                        <path d="M22 10h-4c-1.1 0-2 .9-2 2v0c0 1.1.9 2 2 2h4"/>
+                    </svg>
+                    <h3 class="text-xl font-semibold mb-2">No Wallets Found</h3>
+                    <p class="text-gray-400 mb-6">Create your first wallet to start using Godcoin</p>
+                    <a href="/wallet/new" class="bg-[#00F5A0] text-[#13123A] px-8 py-3 rounded-lg font-semibold hover:bg-[#00D9F5] transition-colors">
+                        Create New Wallet
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <section class="mt-20">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4 gradient-text">Welcome to Godcoin</h2>
+                <p class="text-gray-300 text-lg max-w-2xl mx-auto">The next generation of decentralized currency, combining security, scalability, and sustainability in one powerful ecosystem.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div class="feature-card rounded-xl p-6 text-center">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-[#2D2D6A] rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#00F5A0]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-white">Fixed Supply</h3>
+                    <p class="text-gray-400">Limited to 5 million coins, ensuring value preservation and preventing inflation.</p>
+                </div>
+
+                <div class="feature-card rounded-xl p-6 text-center">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-[#2D2D6A] rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#00F5A0]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M20 7h-7M14 17H7"/>
+                            <circle cx="17" cy="17" r="3"/>
+                            <circle cx="7" cy="7" r="3"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-white">Proof of Work</h3>
+                    <p class="text-gray-400">Secure mining process with 50 GDC reward per block, promoting network stability.</p>
+                </div>
+
+                <div class="feature-card rounded-xl p-6 text-center">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-[#2D2D6A] rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#00F5A0]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-white">Advanced Security</h3>
+                    <p class="text-gray-400">SHA-256 encryption and decentralized architecture ensuring transaction safety.</p>
+                </div>
+            </div>
+
+            <div class="stats-gradient rounded-2xl p-8 mb-16">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <h4 class="text-3xl font-bold text-white mb-2">5M</h4>
+                        <p class="text-gray-400">Total Supply</p>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="text-3xl font-bold text-white mb-2">50 GDC</h4>
+                        <p class="text-gray-400">Block Reward</p>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="text-3xl font-bold text-white mb-2">256-bit</h4>
+                        <p class="text-gray-400">Encryption</p>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="text-3xl font-bold text-white mb-2">Instant</h4>
+                        <p class="text-gray-400">Transactions</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="feature-card rounded-xl p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-white">Getting Started</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 bg-[#2D2D6A] rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <span class="text-[#00F5A0] font-semibold">1</span>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-white font-semibold mb-1">Create Your Wallet</h4>
+                                <p class="text-gray-400">Generate your secure wallet with unique public and private keys.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 bg-[#2D2D6A] rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <span class="text-[#00F5A0] font-semibold">2</span>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-white font-semibold mb-1">Start Mining</h4>
+                                <p class="text-gray-400">Participate in network security and earn mining rewards.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 bg-[#2D2D6A] rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <span class="text-[#00F5A0] font-semibold">3</span>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-white font-semibold mb-1">Make Transactions</h4>
+                                <p class="text-gray-400">Send and receive Godcoins securely with other users.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card rounded-xl p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-white">Security Features</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#00F5A0] mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M20 6L9 17l-5-5"/>
+                            </svg>
+                            <span class="text-gray-300">Cryptographic wallet generation</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#00F5A0] mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M20 6L9 17l-5-5"/>
+                            </svg>
+                            <span class="text-gray-300">Decentralized transaction validation</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#00F5A0] mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M20 6L9 17l-5-5"/>
+                            </svg>
+                            <span class="text-gray-300">Immutable blockchain ledger</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#00F5A0] mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M20 6L9 17l-5-5"/>
+                            </svg>
+                            <span class="text-gray-300">Real-time network monitoring</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-gray-800 mt-20 py-4">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#00F5A0]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M16 8l-4 4-4-4"/>
+                        <path d="M12 16V8"/>
+                    </svg>
+                    <span class="gradient-text font-semibold">Godcoin</span>
+                </div>
+                <p class="text-gray-400 text-sm">&copy; 2025 Godcoin. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
