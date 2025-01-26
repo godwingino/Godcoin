@@ -145,6 +145,7 @@ def mine():
         "previous_hash": block['previous_hash'],
         "miner_address": miner_address  # Include the miner's public address in the response
     })
+    
 
 @app.route('/chain', methods=['GET'])
 def view_chain():
